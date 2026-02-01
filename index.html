@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nina Bakes Tychy | Artystyczne Torty i Desery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-pink: #fdf2f2;
+            --brand-rose: #e9a6a6;
+            --brand-gold: #d4af37;
+            --text-dark: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), 
+                        url('https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-rose);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        @media (min-width: 640px) {
+            .btn-primary {
+                padding: 12px 30px;
+                font-size: 0.875rem;
+            }
+        }
+
+        .btn-primary:hover {
+            background-color: #d88b8b;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--brand-rose);
+            color: var(--brand-rose);
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--brand-rose);
+            color: white;
+        }
+
+        /* Carousel Styles */
+        #carouselContainer {
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        #carouselContainer::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-item {
+            scroll-snap-align: center;
+            flex: 0 0 85%; /* Shows a bit of the next card on mobile */
+        }
+        @media (min-width: 768px) {
+            .carousel-item { 
+                flex: 0 0 45%; 
+                scroll-snap-align: start;
+            }
+        }
+        @media (min-width: 1024px) {
+            .carousel-item { flex: 0 0 31.333%; }
+        }
+
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+        .logo-main {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--brand-rose);
+            text-transform: uppercase;
+        }
+        .logo-sub {
+            font-size: 0.55rem;
+            letter-spacing: 0.4em;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            margin-top: 2px;
+            font-weight: 300;
+        }
+
+        @media (min-width: 640px) {
+            .logo-main { font-size: 1.5rem; }
+            .logo-sub { font-size: 0.65rem; }
+        }
+
+        /* Mobile Menu Animation */
+        #mobileMenu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    
+            <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
+                <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                    <a href="#home" class="flex items-center">
+                        <img src="logo.png" alt="Nina Bakes Tychy" class="h-10 w-auto object-contain">
+                    </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 lg:space-x-8 text-sm uppercase tracking-wider items-center font-semibold text-gray-600">
+                <a href="#home" class="hover:text-[#e9a6a6] transition-colors">Start</a>
+                <a href="#about" class="hover:text-[#e9a6a6] transition-colors">O nas</a>
+                <a href="oferta.html" class="hover:text-[#e9a6a6] transition-colors">Oferta</a>
+                <a href="#contact" class="hover:text-[#e9a6a6] transition-colors">Kontakt</a>
+                <a href="zamowienie.html" class="btn-outline text-[10px] py-2 px-5">Złóż zamówienie</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-[#e9a6a6] p-2 focus:outline-none" id="menuBtn">
+                <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="fixed top-0 right-0 h-screen w-3/4 bg-white shadow-2xl z-[60] flex flex-col p-8 md:hidden">
+            <button class="self-end mb-8 text-[#e9a6a6]" id="closeMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="flex flex-col space-y-6 text-lg uppercase tracking-widest font-medium">
+                <a href="#home" class="mobile-link hover:text-[#e9a6a6]">Start</a>
+                <a href="#about" class="mobile-link hover:text-[#e9a6a6]">O nas</a>
+                <a href="#offer" class="mobile-link hover:text-[#e9a6a6]">Oferta</a>
+                <a href="#contact" class="mobile-link hover:text-[#e9a6a6]">Kontakt</a>
+                <a href="zamowienie.html" class="btn-outline text-[10px] py-2 px-5">Złóż zamówienie</a>            </div>
+        </div>
+        <div id="menuOverlay" class="fixed inset-0 bg-black/50 hidden z-50 transition-opacity opacity-0 md:hidden"></div>
+    </nav>
+
+    <!-- Hero Section 
+    <section id="home" class="hero-bg h-[90vh] md:h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-3xl">-->
+            <section id="home" 
+         class="relative h-[90vh] md:h-screen flex items-center justify-center text-center px-6 bg-cover bg-center" 
+         style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                url('tlo1.jpeg');">
+                <div class="max-w-3xl">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 text-[#4a4a4a] leading-tight">Słodkie rzemiosło w sercu Tychów</h1>
+            <p class="text-base md:text-xl mb-8 font-light italic text-[#666]">Torty artystyczne, monoporcje i makaroniki tworzone z pasją.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="oferta.html" class="btn-primary w-full sm:w-auto">Oferta</a>
+                <a href="zamowienie.html" class="btn-outline bg-white/50 w-full sm:w-auto">Zamów teraz</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-[#fdf2f2]">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10 md:gap-12">
+            <div class="w-full md:w-1/2">
+                <img src="tlo2.jpg" alt="Interior cukierni" class="rounded-lg shadow-xl w-full h-64 md:h-auto object-cover">
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl md:text-4xl mb-6 text-[#e9a6a6]">Pasja w każdym kawałku</h2>
+                <p class="text-sm md:text-base mb-6 leading-relaxed text-gray-700">W Nina Bakes wierzymy, że deser to coś więcej niż tylko jedzenie – to emocje i wspomnienia. Każdy nasz wypiek przygotowujemy od podstaw, używając wyłącznie naturalnych składników najwyższej jakości.</p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Section (Carousel) -->
+    <section id="offer" class="py-16 md:py-24 bg-white overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl mb-4">Nasze Słodkości</h2>
+                <div class="w-16 md:w-20 h-1 bg-[#e9a6a6] mx-auto"></div>
+            </div>
+            
+            <div class="relative group">
+                <!-- Desktop Buttons (Hidden on mobile touch devices) -->
+                <button id="prevBtn" class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-3 rounded-full shadow-md text-[#e9a6a6] hover:bg-[#e9a6a6] hover:text-white transition-all -ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="nextBtn" class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-3 rounded-full shadow-md text-[#e9a6a6] hover:bg-[#e9a6a6] hover:text-white transition-all -mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+
+                <!-- Carousel Container -->
+                <div id="carouselContainer" class="flex gap-4 md:gap-8 overflow-x-auto py-4 -mx-2 px-2 scroll-smooth">
+                    <!-- Item 1 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm border border-transparent hover:border-[#e9a6a6]/30 transition-all">
+                            <img src="torty.jpg" alt="Torty artystyczne" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide px-2">Torty Artystyczne</h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Personalizowane torty na wesela, urodziny i chrzciny.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm">
+                            <img src="macaron.jpg" alt="Makaroniki" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide">Makaroniki</h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Klasyczne ciasteczka migdałowe w nowoczesnych smakach.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm">
+                            <img src="musove.jpeg" alt="Monoporcje" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide">Monoporcje</h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Eleganckie desery premium dla najbardziej wymagających.</p>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm">
+                            <img src="box.jpg" alt="Słodkie boxy" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide">Słodkie Boxy</h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Zestawy degustacyjne idealne na prezent lub spotkanie.</p>
+                        </div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm">
+                            <img src="bento.jpg" alt="Bento" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide">Bento </h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Bento torty.</p>
+                        </div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="carousel-item">
+                        <div class="bg-[#fdf2f2] p-2 rounded-xl text-center h-full shadow-sm">
+                            <img src="mus.jpg" alt="Musowe" class="w-full h-60 md:h-72 object-cover rounded-t-lg mb-4">
+                            <h3 class="text-lg md:text-2xl mb-2 uppercase tracking-wide">Tort Beżowy</h3>
+                            <p class="text-xs md:text-sm font-light px-4 pb-4 text-gray-600">Torty musowe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="py-16 md:py-20 bg-[#fdf2f2] border-y border-[#e9a6a6]/20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl mb-6 text-[#4a4a4a]">Chcesz zamówić coś wyjątkowego?</h2>
+            <p class="text-base md:text-lg mb-10 text-gray-600 font-light leading-relaxed">Przyjmujemy zamówienia na torty personalizowane oraz słodkie stoły. Skontaktuj się z nami, aby omówić szczegóły Twojego wymarzonego deseru.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
+                <a href="https://www.instagram.com/nina_bakes_tychy" target="_blank" class="btn-primary flex items-center justify-center gap-2 w-full sm:w-auto">
+                    <span>Zamów przez Instagram</span>
+                </a>
+                <a href="tel:+48730227185" class="btn-outline flex items-center justify-center gap-2 bg-white w-full sm:w-auto">
+                    <span class="text-sm">Zadzwoń: +48 730 227 185</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location -->
+    <section id="contact" class="py-16 md:py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl mb-10 text-center md:text-left">Odwiedź nas</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8 md:gap-16 text-gray-600 border-b pb-12">
+                
+                <div class="flex items-start gap-4 min-w-[250px]">
+                    <span class="text-xl md:text-2xl text-[#e9a6a6]">📍</span>
+                    <div class="text-sm md:text-base">
+                        <h4 class="font-bold text-dark">Adres:</h4>
+                        <p>ul. Biblioteczna 16, 43-110 Tychy</p>
+                    </div>
+                </div>
+    
+                <div class="flex items-start gap-4">
+                    <span class="text-xl md:text-2xl text-[#e9a6a6]">🕒</span>
+                    <div class="text-sm md:text-base">
+                        <h4 class="font-bold text-dark">Godziny otwarcia:</h4>
+                        <div class="flex flex-col sm:flex-row sm:gap-6">
+                            <p>Wtorek - Sobota: 10:00 - 19:00</p>
+                            <p>Niedziela: 10:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#f5f5f5] text-white py-12 text-center">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="logo-container items-center mb-6">
+                <img src="logo.png" alt="Nina Bakes Tychy" class="h-10 w-auto object-contain">
+                
+            </div>
+            <div class="flex justify-center space-x-6 mb-8 uppercase text-[9px] md:text-[10px] tracking-[0.2em] font-medium">
+                <a href="https://www.instagram.com/nina_bakes_tychy" class="hover:text-[#e9a6a6] transition-colors">Instagram</a>
+                <a href="#" class="hover:text-[#e9a6a6] transition-colors">Facebook</a>
+            </div>
+            <div class="text-[9px] text-gray-500 uppercase tracking-widest border-t border-gray-700 pt-8">
+                &copy; 2024 Nina Bakes. Wszystkie prawa zastrzeżone.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Elements
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        // Functions
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('hidden');
+            setTimeout(() => {
+                menuOverlay.classList.toggle('opacity-0');
+            }, 10);
+            document.body.classList.toggle('overflow-hidden');
+        };
+
+        // Events
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        // Carousel Logic
+        const container = document.getElementById('carouselContainer');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        const getScrollAmount = () => container.querySelector('.carousel-item').offsetWidth + 16;
+
+        nextBtn.addEventListener('click', () => {
+            container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+
+        // Auto Scroll (Stops when user interacts)
+        let autoScroll = setInterval(() => {
+            const buffer = 10;
+            if (container.scrollLeft + container.offsetWidth >= container.scrollWidth - buffer) {
+                container.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            }
+        }, 6000);
+
+        container.addEventListener('touchstart', () => clearInterval(autoScroll), {passive: true});
+    </script>
+</body>
+</html>
