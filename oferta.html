@@ -60,7 +60,15 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        /* Mobile Menu Transitions */
+          /* Mobile Menu Animation */
+        #mobileMenu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+        /* Mobile Menu Transitions 
         #mobileMenu {
             transform: translateX(100%);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,7 +79,7 @@
         #menuOverlay.active {
             display: block;
             opacity: 1;
-        }
+        }*/
     </style>
 </head>
 <body class="bg-white overflow-x-hidden">
@@ -390,6 +398,7 @@
 </body>
 
 </html>
+
 
 
 
