@@ -37,6 +37,18 @@
         .btn-submit:hover {
             background-color: #bc8a5f;
         }
+        .btn-outline {
+            border: 2px solid #e9a6a6;
+            color: #e9a6a6;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            border-radius: 9999px;
+        }
+        .btn-outline:hover {
+            background-color: #e9a6a6;
+            color: white;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -44,7 +56,7 @@
             background: rgba(0,0,0,0.5);
             align-items: center;
             justify-content: center;
-            z-index: 50;
+            z-index: 100;
         }
         .logo-container {
             width: 120px;
@@ -58,31 +70,77 @@
             justify-content: center;
             border: 2px solid #f3e5d8;
         }
+        /* Mobile menu transitions */
+        #mobileMenu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
     </style>
 </head>
-<body class="py-10 px-4">
+<body class="bg-[#fdf8f5] overflow-x-hidden">
 
-    <div class="max-w-2xl mx-auto">
-        <!-- Header -->
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html#home" class="flex items-center">
+                <img src="logo.png" alt="Nina Bakes Tychy" class="h-10 w-auto object-contain" onerror="this.src='https://api.iconify.design/lucide:cake-slice.svg?color=%23d4a373'">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 lg:space-x-8 text-sm uppercase tracking-wider items-center font-semibold text-gray-600">
+                <a href="index.html#home" class="hover:text-[#e9a6a6] transition-colors">Start</a>
+                <a href="index.html#about" class="hover:text-[#e9a6a6] transition-colors">O nas</a>
+                <a href="oferta.html" class="hover:text-[#e9a6a6] transition-colors">Oferta</a>
+                <a href="index.html#contact" class="hover:text-[#e9a6a6] transition-colors">Kontakt</a>
+                <a href="order_form.html" class="btn-outline text-[10px] py-2 px-5">Złóż zamówienie</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-[#e9a6a6] p-2 focus:outline-none" id="menuBtn">
+                <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="fixed top-0 right-0 h-screen w-3/4 bg-white shadow-2xl z-[60] flex flex-col p-8 md:hidden">
+            <button class="self-end mb-8 text-[#e9a6a6]" id="closeMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="flex flex-col space-y-6 text-lg uppercase tracking-widest font-medium text-gray-700">
+                <a href="index.html#home" class="mobile-link hover:text-[#e9a6a6]">Start</a>
+                <a href="index.html#about" class="mobile-link hover:text-[#e9a6a6]">O nas</a>
+                <a href="oferta.html" class="mobile-link hover:text-[#e9a6a6]">Oferta</a>
+                <a href="index.html#contact" class="mobile-link hover:text-[#e9a6a6]">Kontakt</a>
+                <a href="order_form.html" class="btn-outline py-3 px-5 text-center">Złóż zamówienie</a>
+            </div>
+        </div>
+        <div id="menuOverlay" class="fixed inset-0 bg-black/50 hidden z-50 transition-opacity opacity-0 md:hidden"></div>
+    </nav>
+
+    <!-- Main Content (Added pt-24 to prevent overlap with fixed navbar) -->
+    <div class="max-w-2xl mx-auto pt-24 pb-10 px-4">
+        <!-- Header Section -->
         <div class="text-center mb-10">
-            <!-- Logo Section -->
             <div class="logo-container">
-                <!-- Замініть посилання нижче на URL вашого логотипу -->
-                <img src="logo.png" alt="Logo Nina Bakes" class="w-20 h-20 object-contain">
+                <img src="logo.png" alt="Logo Nina Bakes" class="w-20 h-20 object-contain" onerror="this.src='https://api.iconify.design/lucide:cake-slice.svg?color=%23d4a373'">
             </div>
             
+            <h1 class="text-4xl md:text-5xl font-bold text-[#bc8a5f] mb-2">Nina Bakes</h1>
             <p class="italic text-gray-500">Słodkie chwile tworzone z pasją</p>
             <div class="h-1 w-20 bg-[#d4a373] mx-auto mt-4"></div>
         </div>
 
         <!-- Order Form -->
         <form id="orderForm" class="form-card p-8 space-y-8">
-            
-            <!-- Honeypot (Spam protection) -->
             <input type="text" name="_honey" style="display:none">
-            <!-- Disable Captcha -->
             <input type="hidden" name="_captcha" value="false">
-            <!-- Order Number (Hidden Input) -->
             <input type="hidden" id="orderNumberInput" name="Numer Zamówienia">
 
             <!-- Section 1: Contact -->
@@ -190,10 +248,8 @@
                 </button>
                 <p id="statusMsg" class="text-center text-sm mt-4 font-medium"></p>
             </div>
-
         </form>
 
-        <!-- Footer -->
         <footer class="mt-10 text-center text-gray-400 text-sm">
             <p>&copy; 2024 Nina Bakes Tychy. Wszystkie prawa zastrzeżone.</p>
         </footer>
@@ -213,6 +269,25 @@
     </div>
 
     <script>
+        // Navigation Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('hidden');
+            setTimeout(() => {
+                menuOverlay.classList.toggle('opacity-0');
+            }, 50);
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Form Logic
         const form = document.getElementById('orderForm');
         const btn = document.getElementById('submitBtn');
         const status = document.getElementById('statusMsg');
@@ -220,20 +295,17 @@
         const orderNumField = document.getElementById('orderNumberInput');
         const displayOrderNum = document.getElementById('displayOrderNum');
 
-        // Funkcja generująca unikalny numer zamówienia (ID)
         function generateOrderNumber() {
             const date = new Date();
             const dateStr = date.getFullYear() + 
                            String(date.getMonth() + 1).padStart(2, '0') + 
                            String(date.getDate()).padStart(2, '0');
-            const random = Math.floor(1000 + Math.random() * 9000); // 4 випадкові цифри
+            const random = Math.floor(1000 + Math.random() * 9000);
             return `#${dateStr}-${random}`;
         }
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Генеруємо номер замовлення безпосередньо перед відправкою
             const orderID = generateOrderNumber();
             orderNumField.value = orderID;
             displayOrderNum.innerText = orderID;
