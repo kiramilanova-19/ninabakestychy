@@ -177,8 +177,22 @@
     <!-- Hero Section 
     <section id="home" class="hero-bg h-[90vh] md:h-screen flex items-center justify-center text-center px-6">
         <div class="max-w-3xl">-->
+    <section id="home" class="relative h-[90vh] md:h-screen flex items-center justify-center text-center px-6 overflow-hidden">
+    <img src="tlo1.jpeg" alt="Torty artystyczne" class="absolute inset-0 w-full h-full object-cover -z-10">
     
-            <section id="home" 
+    <div class="absolute inset-0 bg-white/40 -z-10"></div>
+
+    <div class="max-w-3xl relative z-10">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl mb-4 md:mb-6 text-[#4a4a4a] leading-tight">Słodkie rzemiosło w sercu Tychów</h1>
+        <p class="text-base md:text-xl mb-8 font-light italic text-[#666]">Torty artystyczne, monoporcje i makaroniki tworzone z pasją.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="oferta.html" class="btn-primary w-full sm:w-auto">Oferta</a>
+            <a href="zamowienie.html" class="btn-outline bg-white/50 w-full sm:w-auto">Zamów teraz</a>
+        </div>
+    </div>
+</section>
+    
+           <!-- <section id="home" 
          class="relative h-[90vh] md:h-screen flex items-center justify-center text-center px-6 bg-cover bg-center" 
          style="background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('tlo1.jpeg');">
                 <div class="max-w-3xl">
@@ -189,7 +203,7 @@
                 <a href="zamowienie.html" class="btn-outline bg-white/50 w-full sm:w-auto">Zamów teraz</a>
             </div>
         </div>
-    </section>
+    </section>>-->
 
     <!-- About Section -->
     <section id="about" class="py-16 md:py-24 bg-[#fdf2f2]">
@@ -398,6 +412,7 @@
     </script>
 </body>
 </html>
+
 
 
 
